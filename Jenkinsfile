@@ -32,6 +32,9 @@ pipeline {
 
             // заархивировать результаты тестов, чтобы их можно было скачать
             archiveArtifacts artifacts: 'build/allure-results/**', fingerprint: true
+
+            //опубликовать отчёт в Jenkins
+            allure([results: [[path: 'build/allure-results']]])
         }
     }
 }
