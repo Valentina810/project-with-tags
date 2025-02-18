@@ -1,6 +1,7 @@
 plugins {
     id("java")
     id("io.freefair.lombok") version "8.6"
+    id("io.qameta.allure") version "2.11.2"
 }
 
 group = "com.github.valentina810"
@@ -23,4 +24,10 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+allure {
+    report {
+        version.set("2.19.0")
+    }
 }
