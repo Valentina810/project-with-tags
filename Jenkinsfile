@@ -1,5 +1,5 @@
 pipeline {
-    agent any //any означает, что Jenkins может запустить этот пайплайн на любой доступной ноде
+    agent any // any означает, что Jenkins может запустить этот пайплайн на любой доступной ноде
 
     stages {
         // клонировать код из репозитория
@@ -9,10 +9,10 @@ pipeline {
             }
         }
 
-        // запустить сборку проекта через Gradle
+        // очистить проект перед сборкой и запустить сборку через Gradle
         stage('Build') {
             steps {
-                sh './gradlew build'
+                sh './gradlew clean build'
             }
         }
 
@@ -27,8 +27,8 @@ pipeline {
     // этот этап выполняется всегда, даже если тесты упали
     post {
         always {
-            // сгенерировать локальный отчет Allure
-            sh './gradlew allureReport'
+            // сгенерировать локальный отчет Allure с очисткой предыдущего
+            sh './gradlew allureReport --clean'
 
             // заархивировать результаты тестов, чтобы их можно было скачать
             archiveArtifacts artifacts: 'build/allure-results/**', fingerprint: true
