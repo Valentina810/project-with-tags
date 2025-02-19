@@ -38,16 +38,13 @@ pipeline {
 
             // выгрузить отчет в Allure TestOps
 			script {
-					withCredentials([string(credentialsId: 'ALLURE_API_TOKEN', variable: 'ALLURE_TOKEN')]) {
-						sh '''
-                                # удалить старый allurectl, если он есть
-                                if [ -f /usr/local/bin/allurectl ]; then
-                                    rm -f /usr/local/bin/allurectl
+				withCredentials([string(credentialsId: 'ALLURE_API_TOKEN', variable: 'ALLURE_TOKEN')]) {
+					sh '''
+                                # скачать новый allurectl, если он не установлен
+                                if [ ! -f /usr/local/bin/allurectl ]; then
+                                    curl -o /usr/local/bin/allurectl -L https://github.com/allure-framework/allurectl/releases/latest/download/allurectl-linux
+                                    chmod +x /usr/local/bin/allurectl
                                 fi
-
-                                # скачать новый allurectl
-                                curl -o /usr/local/bin/allurectl -L https://github.com/allure-framework/allurectl/releases/latest/download/allurectl-linux
-                                chmod +x /usr/local/bin/allurectl
 
                                 # allurectl работает?
                                 /usr/local/bin/allurectl --version || (echo "Ошибка: Allurectl не работает!" && exit 1)
