@@ -37,10 +37,9 @@ pipeline {
             sh './gradlew allureReport --clean'
 
             // выгрузить отчет в Allure TestOps
-				steps {
-					script {
-						withCredentials([string(credentialsId: 'ALLURE_API_TOKEN', variable: 'ALLURE_TOKEN')]) {
-							sh '''
+			script {
+					withCredentials([string(credentialsId: 'ALLURE_API_TOKEN', variable: 'ALLURE_TOKEN')]) {
+						sh '''
                                 # удалить старый allurectl, если он есть
                                 if [ -f /usr/local/bin/allurectl ]; then
                                     rm -f /usr/local/bin/allurectl
@@ -61,9 +60,8 @@ pipeline {
                                     --token ${ALLURE_TOKEN} \
                                     --results build/allure-results
                             '''
-                        }
                     }
-                }
+            }
 
             // заархивировать результаты тестов, чтобы их можно было скачать
             archiveArtifacts artifacts: 'build/allure-results/**', fingerprint: true
