@@ -1,7 +1,7 @@
 plugins {
     id("java")
     id("io.freefair.lombok") version "8.6"
-    id("io.qameta.allure") version "2.11.2"
+    id("io.qameta.allure") version "2.12.0"
 }
 
 group = "com.github.valentina810"
@@ -26,8 +26,11 @@ tasks.test {
     useJUnitPlatform()
 }
 
+// конфигурация плагина Allure
 allure {
     report {
-        version.set("2.19.0")
+        // устанавливает версию Allure Report, используемую для генерации отчетов
+        // эта версия влияет на визуализацию результатов тестирования
+        version.set("2.32.2")
     }
 }
