@@ -37,31 +37,20 @@ pipeline {
             sh './gradlew allureReport --clean'
 
             // выгрузить отчет в Allure TestOps
-			script {
+            script {
 				withCredentials([string(credentialsId: 'ALLURE_API_TOKEN', variable: 'ALLURE_TOKEN')]) {
 					sh '''
-                                # скачать новый allurectl, если он не установлен
-                                if [ ! -f /usr/local/bin/allurectl ]; then
-                                    curl -o /usr/local/bin/allurectl -L https://github.com/allure-framework/allurectl/releases/latest/download/allurectl-linux
-                                    chmod +x /usr/local/bin/allurectl
-                                fi
+                        # заархивировать результаты Allure
+                        zip -r allure-results.zip build/allure-results
 
-                                # allurectl работает?
-                                /usr/local/bin/allurectl --version || (echo "Ошибка: Allurectl не работает!" && exit 1)
-
-                                # загрузить отчёт
-                                export PATH=$PATH:/usr/local/bin
-                                /usr/local/bin/allurectl upload \
-                                    --endpoint ${ALLURE_ENDPOINT} \
-                                    --project-id ${ALLURE_PROJECT_ID} \
-                                    --token ${ALLURE_TOKEN} \
-                                    --results build/allure-results
-                            '''
-                    }
+                        # выгрузить отчет в Allure TestOps
+                        curl -X POST "${ALLURE_ENDPOINT}/api/testruns" \
+                             -H "Authorization: Bearer ${ALLURE_TOKEN}" \
+                             -F "projectId=${ALLURE_PROJECT_ID}" \
+                             -F "file=@allure-results.zip"
+                    '''
+                }
             }
-
-            // заархивировать результаты тестов, чтобы их можно было скачать
-            archiveArtifacts artifacts: 'build/allure-results/**', fingerprint: true
 
             // опубликовать отчёт в Jenkins
             allure([results: [[path: 'build/allure-results']]])
