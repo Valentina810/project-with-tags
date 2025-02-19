@@ -37,7 +37,6 @@ pipeline {
             sh './gradlew allureReport --clean'
 
             // выгрузить отчет в Allure TestOps
-            stage('Upload Results to Allure TestOps') {
 				steps {
 					script {
 						withCredentials([string(credentialsId: 'ALLURE_API_TOKEN', variable: 'ALLURE_TOKEN')]) {
@@ -65,7 +64,6 @@ pipeline {
                         }
                     }
                 }
-            }
 
             // заархивировать результаты тестов, чтобы их можно было скачать
             archiveArtifacts artifacts: 'build/allure-results/**', fingerprint: true
