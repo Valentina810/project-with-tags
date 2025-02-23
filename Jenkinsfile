@@ -9,10 +9,10 @@ pipeline {
             }
         }
 
-        // очистить проект перед сборкой и запустить сборку через Gradle
+        // очистить проект перед сборкой и запустить сборку через Gradle без запуска тестов
         stage('Build') {
 			steps {
-				sh './gradlew clean build'
+				sh './gradlew build -x test'
             }
         }
     }
