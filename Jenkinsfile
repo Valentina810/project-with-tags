@@ -20,7 +20,8 @@ pipeline {
     // этот этап выполняется всегда, даже если тесты упали
     post {
 		always {
-			withAllureUpload(credentialsId: 'allure-credentials', name: '${JOB_NAME} - #${BUILD_NUMBER}', projectId: '34', results: [[path: 'build/allure-results']], serverId: 'AllureServer', tags: 'ENTITIES') {
+
+			withAllureUpload(credentialsId: 'allure-credentials', name: '${JOB_NAME} - #${BUILD_NUMBER}', projectId: '34', results: [[path: 'build/allure-results']], serverId: 'AllureServer', tags: '') {
 				sh './gradlew test'
                 }
 
