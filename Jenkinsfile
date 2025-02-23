@@ -19,12 +19,12 @@ pipeline {
 
     // этот этап выполняется всегда, даже если тесты упали
     post {
-		always {
+	always {
 
-			//запуск тестов с выгрузкой результата в AllureTestOps
-			withAllureUpload(credentialsId: 'allure-credentials', name: '${JOB_NAME} - #${BUILD_NUMBER}', projectId: '34', results: [[path: 'build/allure-results']], serverId: 'AllureServer', tags: '') {
-				sh './gradlew test'
-                }
+	    //запуск тестов с выгрузкой результата в AllureTestOps
+	    withAllureUpload(credentialsId: 'allure-credentials', name: '${JOB_NAME} - #${BUILD_NUMBER}', projectId: '34', results: [[path: 'build/allure-results']], serverId: 'AllureServer', tags: '') {
+		sh './gradlew test'
+            }
 
 			// сгенерировать локальный отчет Allure с очисткой предыдущего
             sh './gradlew allureReport --clean'
