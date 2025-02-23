@@ -21,6 +21,7 @@ pipeline {
     post {
 		always {
 
+			//запуск тестов с выгрузкой результата в AllureTestOps
 			withAllureUpload(credentialsId: 'allure-credentials', name: '${JOB_NAME} - #${BUILD_NUMBER}', projectId: '34', results: [[path: 'build/allure-results']], serverId: 'AllureServer', tags: '') {
 				sh './gradlew test'
                 }
