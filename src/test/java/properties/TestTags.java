@@ -8,5 +8,5 @@ public final class TestTags {
     public static final String ENTITY = "ENTITY";
     public static final String TIME = "TIME";
     public static final String SMOKE = "SMOKE";
-    public static final String ENTITIES = "ENTITY";
+    public static final String ENTITIES = "ENTITIES";
 }

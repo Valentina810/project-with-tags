@@ -19,7 +19,7 @@ pipeline {
         // запустить тесты
         stage('Run Tests') {
 			steps {
-				withAllureUpload(credentialsId: 'allure-credentials', name: '${JOB_NAME} - #${BUILD_NUMBER}', projectId: '34', results: [[path: 'build/allure-results']], serverId: 'AllureServer', tags: '') {
+				withAllureUpload(credentialsId: 'allure-credentials', name: '${JOB_NAME} - #${BUILD_NUMBER}', projectId: '34', results: [[path: 'build/allure-results']], serverId: 'AllureServer', tags: 'ENTITIES') {
 					sh './gradlew test'
                 }
             }
