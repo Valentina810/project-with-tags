@@ -9,7 +9,7 @@ pipeline {
             }
         }
 
-        // очистить проект перед сборкой и запустить сборку через Gradle без запуска тестов
+        // запустить сборку проекта через Gradle без запуска тестов
         stage('Build') {
 			steps {
 				sh './gradlew build -x test'
@@ -21,9 +21,9 @@ pipeline {
     post {
 	always {
 
-	    //запуск тестов с выгрузкой результата в AllureTestOps
-	    withAllureUpload(credentialsId: 'allure-credentials', name: '${JOB_NAME} - #${BUILD_NUMBER}', projectId: '34', results: [[path: 'build/allure-results']], serverId: 'AllureServer', tags: '') {
-		sh './gradlew test'
+	        //запуск тестов с выгрузкой результата в AllureTestOps
+	        withAllureUpload(credentialsId: 'allure-credentials', name: '${JOB_NAME} - #${BUILD_NUMBER}', projectId: '34', results: [[path: 'build/allure-results']], serverId: 'AllureServer', tags: '') {
+		      sh './gradlew test'
             }
 
 			// сгенерировать локальный отчет Allure с очисткой предыдущего
