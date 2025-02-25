@@ -8,8 +8,7 @@ pipeline {
 				checkout scm
             }
         }
-    }
-    stages {
+
 		stage('Run tests') {
 			steps {
 				//запуск тестов с выгрузкой результата в AllureTestOps
@@ -19,6 +18,7 @@ pipeline {
             }
         }
     }
+
     post {// этот этап выполняется всегда
         always {
 		// сгенерировать локальный отчет Allure с очисткой предыдущего
