@@ -1,5 +1,8 @@
 pipeline {
 	agent any // any означает, что Jenkins может запустить этот пайплайн на любой доступной ноде
+	parameters { //выбранные тэги для запуска тестов
+        string(name: 'includeTags', defaultValue: '', description: 'Выбранные теги тестов')
+    }
 
     stages {
 		stage('Checkout') {
@@ -12,8 +15,9 @@ pipeline {
 		stage('Run tests') {
 			steps {
 				//запуск тестов с выгрузкой результата в AllureTestOps
+				//дополнили запуском тестов только с указанными тэгами
                 withAllureUpload(credentialsId: 'allure-credentials', name: '${JOB_NAME} - #${BUILD_NUMBER}', projectId: '34', results: [[path: 'build/allure-results']], serverId: 'AllureServer', tags: '') {
-					sh './gradlew test'
+					sh "./gradlew test -DincludeTags=${params.includeTags.replaceAll('\\s+', '')}"
                 }
             }
         }
