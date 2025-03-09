@@ -1,12 +1,22 @@
 pipeline {
 	agent any // any означает, что Jenkins может запустить этот пайплайн на любой доступной ноде
 
-    parameters {
-        choice(
-            name: 'includeTags',
-            choices: ['MANY_ENTITIES', 'ENTITY', 'TIME', 'SMOKE', 'ENTITIES'],
-            description: 'Выберите тег для теста'
-        )
+parameters {
+        [$class: 'CascadeChoiceParameter',
+         choiceType: 'PT_CHECKBOX',  // многократный выбор с флажками
+         description: 'Выберите теги для теста',
+         name: 'includeTags',
+         script: [
+             $class: 'GroovyScript',
+             script: [
+                 classpath: [],
+                 sandbox: false,
+                 script: """
+                    return ["MANY_ENTITIES", "ENTITY", "TIME", "SMOKE", "ENTITIES"]
+                 """
+             ]
+         ]
+        ]
     }
 
     stages {
