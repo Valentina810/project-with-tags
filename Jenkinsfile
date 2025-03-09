@@ -3,7 +3,7 @@ properties([
         [$class: 'CascadeChoiceParameter',
          choiceType: 'PT_CHECKBOX',  // тип выбора: многократный выбор с флажками
          description: 'Select tags',
-         name: 'tags',  // имя параметра
+         name: 'includeTags',  // имя параметра
          script: [
              $class: 'GroovyScript',
              script: [
