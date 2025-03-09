@@ -23,7 +23,14 @@ dependencies {
 }
 
 tasks.test {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        val tags = System.getProperty("includeTags")
+            ?.split(",")
+            ?.map { it.trim() }
+            ?.filter { it.isNotEmpty() } ?: listOf("SMOKE") // если не передан ни один тэг, запустить тесты с тэгом "SMOKE"
+
+        includeTags(*tags.toTypedArray())
+    }
 }
 
 // конфигурация плагина Allure
