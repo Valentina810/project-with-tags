@@ -2,7 +2,7 @@ properties([
     parameters([
         [$class: 'CascadeChoiceParameter',
          choiceType: 'PT_CHECKBOX',  // тип выбора: многократный выбор с флажками
-         description: 'Select tags',
+         description: 'Выберите теги JUnit 5 для тестов',
          name: 'includeTags',  // имя параметра
          script: [
              $class: 'GroovyScript',
