@@ -1,6 +1,6 @@
 properties([
     parameters([
-        [$class: 'ActiveChoiceParameter',
+        [$class: 'CascadeChoiceParameter',
          choiceType: 'PT_CHECKBOX',  // тип выбора: многократный выбор с флажками
          description: 'Select tags',
          name: 'includeTags',  // имя параметра
