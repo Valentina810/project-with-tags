@@ -1,7 +1,7 @@
 pipeline {
 	agent any // any означает, что Jenkins может запустить этот пайплайн на любой доступной ноде
 
-activeChoiceReactiveParameter(
+activeChoice(
     name: 'includeTags',
     description: 'Выберите теги тестов',
     choiceType: 'CHECKBOX',
