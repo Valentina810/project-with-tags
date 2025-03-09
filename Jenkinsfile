@@ -1,11 +1,9 @@
-pipeline {
-	agent any // any означает, что Jenkins может запустить этот пайплайн на любой доступной ноде
-
-parameters {
+properties([
+    parameters([
         [$class: 'CascadeChoiceParameter',
-         choiceType: 'PT_CHECKBOX',  // многократный выбор с флажками
-         description: 'Выберите теги для теста',
-         name: 'includeTags',
+         choiceType: 'PT_CHECKBOX',  // тип выбора: многократный выбор с флажками
+         description: 'Select tags',
+         name: 'tags',  // имя параметра
          script: [
              $class: 'GroovyScript',
              script: [
@@ -17,7 +15,11 @@ parameters {
              ]
          ]
         ]
-    }
+    ])
+])
+
+pipeline {
+	agent any // any означает, что Jenkins может запустить этот пайплайн на любой доступной ноде
 
     stages {
 		stage('Checkout') {
