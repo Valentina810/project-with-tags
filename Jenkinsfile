@@ -10,8 +10,9 @@ properties([
                  classpath: [],
                  sandbox: false,
                  script: """
-                    return ["MANY_ENTITIES", "ENTITY", "TIME", "SMOKE", "ENTITIES"]
-                 """
+                        def tags = ["MANY_ENTITIES", "ENTITY", "TIME", "SMOKE", "ENTITIES"]
+                        return tags.isEmpty() ? "" : tags
+                        """
              ]
          ],
          defaultValue: ''
