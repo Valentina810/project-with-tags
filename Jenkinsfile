@@ -14,7 +14,8 @@ properties([
                  """
              ]
          ]
-        ]
+        ],
+        defaultValue: ''
     ])
 ])
 
