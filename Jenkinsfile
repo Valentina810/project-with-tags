@@ -13,9 +13,9 @@ properties([
                     return ["MANY_ENTITIES", "ENTITY", "TIME", "SMOKE", "ENTITIES"]
                  """
              ]
-         ]
-        ],
-        defaultValue: ''
+         ],
+         defaultValue: ''
+        ]
     ])
 ])
 
