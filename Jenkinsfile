@@ -34,6 +34,7 @@ pipeline {
 			steps {
 			    script {
                     echo "Переданные теги: '${params.includeTags}'"
+                    echo "Переданные теги: '${params.get("includeTags")}'"
                 }
 				//запуск тестов с выгрузкой результата в AllureTestOps
 				//дополнили запуском тестов только с указанными тэгами
