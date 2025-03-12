@@ -27,9 +27,11 @@ tasks.test {
         val tags = System.getProperty("includeTags")
             ?.split(",")
             ?.map { it.trim() }
-            ?.filter { it.isNotEmpty() } ?: listOf("SMOKE") // если не передан ни один тэг, запустить тесты с тэгом "SMOKE"
+            ?.filter { it.isNotEmpty() } ?: emptyList()
 
-        includeTags(*tags.toTypedArray())
+        if (tags.isNotEmpty() && "ALL" !in tags) {
+            includeTags(*tags.toTypedArray())
+        }
     }
 }
 
