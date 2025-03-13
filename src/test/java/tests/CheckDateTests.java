@@ -17,8 +17,8 @@ import static properties.TestTags.SMOKE;
 public class CheckDateTests {
 
     @Test
+    @AllureId("100")
     @Tag(SMOKE)
-    @AllureId("")
     @DisplayName("Текущее число месяца делится без остатка на 2")
     public void testDateIsAMultipleOfTwo() {
         assertEquals(0, LocalDate.now().getDayOfMonth() % 2);
