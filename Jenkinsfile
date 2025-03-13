@@ -2,7 +2,7 @@ properties([
     parameters([
          string(
                 name: 'BRANCH',
-                defaultValue: 'main',
+                defaultValue: 'master',
                 description: 'Введите название ветки, из которой нужно собрать проект'
             ),
 
