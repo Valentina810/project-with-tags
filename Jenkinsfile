@@ -1,5 +1,11 @@
 properties([
     parameters([
+         string(
+                name: 'BRANCH',
+                defaultValue: 'main',
+                description: 'Введите название ветки, из которой нужно собрать проект'
+            ),
+
         [$class: 'CascadeChoiceParameter',
          choiceType: 'PT_CHECKBOX',  // тип выбора: многократный выбор с флажками
          description: 'Выберите теги JUnit 5 для тестов',
@@ -26,7 +32,16 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                 script {
+                    echo "Сборка из ветки: ${params.BRANCH}"
+                 }
+                 checkout([
+                    $class: 'GitSCM',
+                     branches: [[name: "*/${params.BRANCH}"]],
+                      userRemoteConfigs: [[
+                        url: 'https://github.com/Valentina810/project-with-tags.git'
+                      ]]
+                 ])
             }
         }
 
