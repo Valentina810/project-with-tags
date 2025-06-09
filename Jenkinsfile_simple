@@ -1,0 +1,28 @@
+//  пример минимального, супер простого пайплайна
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/Valentina810/project-with-tags.git', branch: 'master'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh './gradlew test'
+            }
+        }
+    }
+
+    post {
+        always {
+            // Генерация отчёта Allure
+            sh './gradlew allureReport --clean'
+
+            // Сохранение отчёта в Jenkins
+            allure results: [[path: 'build/allure-results']]
+        }
+    }
+}
